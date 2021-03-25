@@ -1,4 +1,6 @@
-import ctypes, os, threading, strgen, base64
+#!/usr/bin/python3
+import ctypes, os, threading, base64
+from strgen import StringGenerator
 tokenid = "4030200023"
 
 
@@ -8,13 +10,12 @@ class Discord:
         self.generated = 0
 
     def generate(self):
-        discordToken = strgen.StringGenerator(self.regularExpression).render()
+        discordToken = StringGenerator(self.regularExpression).render()
         discordToken = discordToken.replace("..", ".")
         discordToken = str(id) + discordToken 
         print(discordToken)
         self.generated += 1
         self.write(discordToken)
-        self.title()
 
     def new_method(self):
         return self.regularExpression
@@ -25,10 +26,6 @@ class Discord:
             writeToken.write(f"{discordToken}\n")
         else:
             open("./tokens.txt", "w").close() # Simply create the file.
-
-    def title(self):
-        ctypes.windll.kernel32.SetConsoleTitleW(f"Discord Token Bruteforcer - Calastrophe#5752: {self.generated}")
-
 
 open("./tokens.txt", "w").close() # Create and clear our token file each time
 token = Discord()
